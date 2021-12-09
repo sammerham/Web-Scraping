@@ -26,6 +26,3 @@ print('reviews------>>>>', reviews_json)
 
 
 
-
-# query parametter for url to change lender
-# get request 
