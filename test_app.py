@@ -11,6 +11,7 @@ class ShowReviewsTestCase(TestCase):
     """Examples of integration tests: testing Flask app."""
 
     def test_show_reviews(self):
+        """test get review works and return a list of reviews if provided a valid url."""
         with app.test_client() as client:
             # can now make get request to flask via `client`
             resp = client.get(f"/reviews/{lender_name}/{lender_id}")
@@ -20,6 +21,7 @@ class ShowReviewsTestCase(TestCase):
             self.assertIn('Kay from Pharr, TX', html)
 
     def test_show_reviews_invalidurl(self):
+        """test get review works and return err message if provided invalid url."""
         with app.test_client() as client:
             # can now make get request to flask via `client`
             resp = client.get(f"/reviews/{lender_name}/{invalid_id}")

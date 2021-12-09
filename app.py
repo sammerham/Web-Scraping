@@ -14,6 +14,7 @@ def show_reviews(lender_name, lender_id):
 
     lender=f"{lender_name}/{lender_id}"
     url = f"{BASE_URL}{lender}"
+    print(url)
     reviews = get_reviews(url)  
 
     return jsonify({'Reviews':reviews})
