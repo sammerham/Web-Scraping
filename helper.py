@@ -2,9 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 
 
-
-
-
 def get_reviews(URL):
     """Takes in url, returns a list of dictionaries of reviews."""
     page = requests.get(URL)
@@ -15,6 +12,7 @@ def get_reviews(URL):
         return {'err':"Please enter a valid lender's name and or id"}
 
     reviews_elements = results.find_all("div", class_="mainReviews")
+
 
     reviews = []
     for review_element in reviews_elements:
@@ -29,3 +27,8 @@ def get_reviews(URL):
     return reviews
 
 
+# if I need to use urllib3
+# import urllib3
+# http = urllib3.PoolManager()
+# page = http.request("GET", URL).data
+# soup = BeautifulSoup(page, "html.parser")
