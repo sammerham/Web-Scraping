@@ -8,12 +8,14 @@ def get_reviews(URL):
     soup = BeautifulSoup(page.content, "html.parser")
     results = soup.find("section", {"class": "lenderReviews"})
 
+    # error handling
     if results is None:
         return {'err':"Please enter a valid lender's name and or id"}
-
+        
+    # page reviews
     reviews_elements = results.find_all("div", class_="mainReviews")
 
-
+    # building a list of dictionaries of reviews from reviews parsed from page html
     reviews = []
     for review_element in reviews_elements:
         review = {}
