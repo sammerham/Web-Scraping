@@ -13,7 +13,7 @@ TEST_REVIEW = {
     "Review_Title": "Great experience"
 }
 
-class AdditionTestCase(TestCase):
+class ReviewsTestCase(TestCase):
     """Unit tests."""
 
     def test_get_reviews(self):
