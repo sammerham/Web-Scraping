@@ -1,5 +1,4 @@
-from flask import Flask
-from flask.json import jsonify
+from flask import Flask, jsonify
 from helper import get_reviews
 app = Flask(__name__)
 
@@ -15,7 +14,6 @@ def show_reviews(lender_name, lender_id):
     # building url from url params and base url
     lender=f"{lender_name}/{lender_id}"
     url = f"{BASE_URL}{lender}"
-    print(url)
     # get reviews from provided from url
     reviews = get_reviews(url)
     if('err' in reviews):
@@ -23,3 +21,23 @@ def show_reviews(lender_name, lender_id):
     else:
         return jsonify({'Reviews':reviews})
 
+
+
+# another version that doesn't need the lender name in the url. 
+""" 
+@app.route('/reviews/<int:lender_id>')
+def show_reviews(lender_id):
+
+    # Handles GET requests like /reviews/lender_name/lender_id
+    # Returns JSON format of Reviews for lender provided in url path
+
+    # building url from url params and base url
+    url = f"{BASE_URL}{lender_id}"
+    print(url)
+    # get reviews from provided from url
+    reviews = get_reviews(url)
+    if('err' in reviews):
+        return jsonify({'Errors': reviews})
+    else:
+        return jsonify({'Reviews': reviews})
+"""
