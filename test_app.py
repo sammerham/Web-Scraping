@@ -18,7 +18,7 @@ class ShowReviewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('Kay from Pharr, TX', html)
+            self.assertIn('Reviews', html)
 
     def test_show_reviews_invalidurl(self):
         """test get review works and return err message if provided invalid url."""
