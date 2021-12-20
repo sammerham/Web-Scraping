@@ -4,33 +4,27 @@ from bs4 import BeautifulSoup
 
 def get_reviews(URL):
     """Takes in url, returns a list of dictionaries of reviews."""
-    page = requests.get(URL)
-    soup = BeautifulSoup(page.content, "html.parser")
-    results = soup.find("section", {"class": "lenderReviews"})
-
-    # error handling
-    if results is None:
-        return {'err':"Please enter a valid lender's name and or id"}
+    try:
+        page = requests.get(URL)
+        soup = BeautifulSoup(page.content, "html.parser")
+        results = soup.find("section", {"class": "lenderReviews"}) 
         
     # page reviews
-    reviews_elements = results.find_all("div", class_="mainReviews")
+        reviews_elements = results.find_all("div", {"class":"mainReviews"})
 
     # building a list of dictionaries of reviews from reviews parsed from page html
-    reviews = []
-    for review_element in reviews_elements:
-        review = {}
-        review['Customer_Name'] =  " ".join(review_element.find("p", class_="consumerName").text.split())
-        review['Review_Title']= review_element.find("p", class_="reviewTitle").text.strip()
-        review['Review_Text'] = review_element.find("p", class_="reviewText").text.strip()
-        review['Review_Date']= review_element.find("p", class_="consumerReviewDate").text.strip()
-        review['Review_Rating'] = review_element.find("div", class_="numRec").text.strip()
-        reviews.append(review)
+        reviews = []
+        for review_element in reviews_elements:
+            review = {}
+            review['customer_name'] =  " ".join(review_element.find("p", {"class":"consumerName"}).text.split())
+            review['review_title']= review_element.find("p", {"class":"reviewTitle"}).text.strip()
+            review['review_text'] = review_element.find("p", {"class":"reviewText"}).text.strip()
+            review['review_date']= review_element.find("p", {"class":"consumerReviewDate"}).text.strip()
+            review['review_rating'] = review_element.find("div", {"class":"numRec"}).text.strip()
+            reviews.append(review)
     
-    return reviews
+        return reviews
+    except:
+        return {'err': "Please enter a valid lender's name and or id"}
 
 
-# if I need to use urllib3
-# import urllib3
-# http = urllib3.PoolManager()
-# page = http.request("GET", URL).data
-# soup = BeautifulSoup(page, "html.parser")

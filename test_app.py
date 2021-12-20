@@ -28,4 +28,4 @@ class ShowReviewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn("Please enter a valid lender's name and or id", html)
+            self.assertIn("Errors", html)
